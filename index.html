@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dashboard Dana Ketahanan PUMK CTI — Program Pertanian Cerdas Iklim JAPESDA Gorontalo 2025–2028">
+<meta property="og:title" content="Dashboard Dana Ketahanan — PUMK CTI | PCI JAPESDA">
+<meta property="og:description" content="Monitoring simpanan anggota PUMK Cahaya Terang Ilomata, Juni 2025 – Juni 2026">
+<title>Dashboard Dana Ketahanan — PUMK CTI | PCI JAPESDA</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.8.0/dist/tabler-icons.min.css">
+<style>
+:root{
+  --bg0:#fff;--bg1:#f6f8fa;--bg2:#eaeef2;--bg3:#d0d7de;
+  --t1:#24292f;--t2:#57606a;--t3:#8c959f;
+  --bdr:rgba(0,0,0,.1);--bdr2:rgba(0,0,0,.2);
+  --r1:8px;--r2:12px;
+  --wb:#fff8c5;--wt:#9a6700;--wbd:#d4a72c;
+  --ib:#ddf4ff;--it:#0550ae;
+  --teal:#1D9E75;--amber:#EF9F27;--blue:#378ADD;--red:#E24B4A;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg0:#0d1117;--bg1:#161b22;--bg2:#21262d;--bg3:#30363d;
+  --t1:#e6edf3;--t2:#8b949e;--t3:#656d76;
+  --bdr:rgba(255,255,255,.1);--bdr2:rgba(255,255,255,.2);
+  --wb:#3d2b01;--wt:#f3a535;--wbd:#6e4b00;
+  --ib:#051d4d;--it:#58a6ff;
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg0);color:var(--t1);font-size:14px;line-height:1.5;min-height:100vh}
+.wrap{max-width:960px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem}
+.pg-title{font-size:18px;font-weight:600;color:var(--t1)}
+.pg-sub{font-size:12px;color:var(--t2);margin-top:3px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--ib);color:var(--it);font-size:11px;padding:3px 10px;border-radius:var(--r1);font-weight:500}
+.chip i{font-size:13px}
+.filter-box{background:var(--bg1);border:0.5px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:1.25rem}
+.frow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.flbl{font-size:11px;color:var(--t2);font-weight:600;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.fbtn{background:var(--bg0);border:0.5px solid var(--bdr2);border-radius:var(--r1);color:var(--t2);font-size:12px;padding:5px 12px;cursor:pointer;transition:background .12s,color .12s}
+.fbtn:hover{background:var(--bg2)}
+.fbtn.on{background:var(--ib);color:var(--it);border-color:var(--it)}
+.crow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+select{background:var(--bg0);border:0.5px solid var(--bdr2);border-radius:var(--r1);color:var(--t1);font-size:12px;padding:5px 8px;height:30px;cursor:pointer;outline:none}
+select:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(55,138,221,.2)}
+.btn-apply{background:var(--bg0);border:0.5px solid var(--bdr2);border-radius:var(--r1);color:var(--t2);font-size:12px;padding:5px 14px;cursor:pointer}
+.btn-apply:hover{background:var(--bg2)}
+.gap-warn{font-size:11px;color:var(--wt);background:var(--wb);border-radius:var(--r1);padding:3px 8px;display:none;align-items:center;gap:4px}
+.gap-warn i{font-size:13px}
+.kgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+@media(max-width:640px){.kgrid{grid-template-columns:1fr 1fr}}
+.kcard{background:var(--bg1);border-radius:var(--r1);padding:14px 16px}
+.klbl{font-size:11px;color:var(--t2);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.klbl i{font-size:14px}
+.kval{font-size:22px;font-weight:600;color:var(--t1);line-height:1.1}
+.ksub{font-size:11px;color:var(--t3);margin-top:4px}
+.kbdg{display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--r1);margin-top:5px;font-weight:500;background:var(--wb);color:var(--wt)}
+.irow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
+@media(max-width:580px){.irow{grid-template-columns:1fr}}
+.ins{background:var(--bg1);border-radius:var(--r1);padding:12px 14px;border-left:3px solid}
+.it{border-color:var(--teal)}.ia{border-color:var(--amber)}.ir{border-color:var(--red)}
+.ival{font-size:20px;font-weight:600;color:var(--t1)}
+.itxt{font-size:11px;color:var(--t2);margin-top:3px}
+.card{background:var(--bg0);border:0.5px solid var(--bdr);border-radius:var(--r2);padding:16px;margin-bottom:1.25rem}
+.stitle{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bdr);display:flex;align-items:center;gap:7px}
+.stitle i{font-size:14px}
+.lgnd{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:12px;color:var(--t2)}
+.ld{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.tcol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.25rem}
+@media(max-width:600px){.tcol{grid-template-columns:1fr}}
+.hmscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.hmout{min-width:600px}
+.hmhdr{display:flex;padding-left:72px;padding-right:34px;margin-bottom:3px}
+.hmmth{flex:1;text-align:center;font-size:9.5px;color:var(--t3);font-weight:500}
+.hmmth.gap{color:var(--red);opacity:.8}
+.hmrow{display:flex;align-items:center;margin-bottom:2px}
+.hmname{width:72px;font-size:10px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:5px}
+.hmcells{display:flex;flex:1;gap:2px}
+.hmcell{flex:1;height:16px;border-radius:3px}
+.hmcnt{width:32px;text-align:right;font-size:10px;padding-left:4px}
+.cp{background:var(--teal)}
+.ce{background:var(--bg2)}
+.cg{background:repeating-linear-gradient(-45deg,var(--bg2),var(--bg2) 3px,rgba(226,75,74,.18) 3px,rgba(226,75,74,.18) 6px)}
+table.tt{width:100%;font-size:12px;border-collapse:collapse;table-layout:fixed}
+table.tt th{text-align:left;font-size:11px;font-weight:600;color:var(--t2);padding:7px 8px;border-bottom:0.5px solid var(--bdr);text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table.tt td{padding:8px 8px;border-bottom:0.5px solid var(--bdr);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table.tt tr:last-child td{border-bottom:none}
+table.tt tr:hover td{background:var(--bg1)}
+.bar-bg{height:3px;background:var(--bg2);border-radius:2px;margin-top:3px}
+.bar-f{height:3px;background:var(--teal);border-radius:2px}
+.gL{color:var(--blue);font-weight:600}.gP{color:#D4537E;font-weight:600}
+footer{text-align:center;font-size:11px;color:var(--t3);padding:1.5rem 0;border-top:0.5px solid var(--bdr);margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="pg-hdr">
+  <div>
+    <div class="pg-title">Dana Ketahanan — PUMK Cahaya Terang Ilomata</div>
+    <div class="pg-sub">Program Pertanian Cerdas Iklim (PCI) · JAPESDA Gorontalo · Jun 2025–Jun 2026 · Kec. Bulango Ulu, Bone Bolango</div>
+  </div>
+  <div id="periodChip" class="chip"><i class="ti ti-calendar"></i><span>Semua bulan (13)</span></div>
+</div>
+
+<div class="filter-box">
+  <div class="frow">
+    <span class="flbl">Periode</span>
+    <button class="fbtn on" id="btn0" onclick="setPreset(0)">Semua</button>
+    <button class="fbtn" id="btn1" onclick="setPreset(1)">2025</button>
+    <button class="fbtn" id="btn2" onclick="setPreset(2)">2026</button>
+    <button class="fbtn" id="btn3" onclick="setPreset(3)">Q3 '25</button>
+    <button class="fbtn" id="btn4" onclick="setPreset(4)">Q4 '25</button>
+    <button class="fbtn" id="btn5" onclick="setPreset(5)">Q1 '26</button>
+    <button class="fbtn" id="btn6" onclick="setPreset(6)">Q2 '26</button>
+  </div>
+  <div class="crow">
+    <span class="flbl">Kustom</span>
+    <select id="selF" onchange="onSC()"></select>
+    <span style="font-size:12px;color:var(--t3)">sampai</span>
+    <select id="selT" onchange="onSC()"></select>
+    <button class="btn-apply" onclick="applyCustom()">Terapkan</button>
+    <span id="gapWarn" class="gap-warn"><i class="ti ti-alert-triangle"></i>Ada bulan tanpa data</span>
+  </div>
+</div>
+
+<div class="kgrid">
+  <div class="kcard"><div class="klbl"><i class="ti ti-coin"></i>Setoran SW+SS periode</div><div class="kval" id="kTotal">—</div><div class="ksub" id="kSub">—</div></div>
+  <div class="kcard"><div class="klbl"><i class="ti ti-users"></i>Anggota aktif SW</div><div class="kval" id="kActive">—</div><div class="kbdg" id="kBdg" style="display:none"></div></div>
+  <div class="kcard"><div class="klbl"><i class="ti ti-calendar-stats"></i>Bulan berdata</div><div class="kval" id="kMonths">—</div><div class="ksub" id="kMSub">—</div></div>
+  <div class="kcard"><div class="klbl"><i class="ti ti-trending-up"></i>Rata-rata SW/aktif</div><div class="kval" id="kAvg">—</div><div class="ksub">per anggota aktif SW</div></div>
+</div>
+
+<div class="irow">
+  <div class="ins it"><div class="ival" id="iA">—</div><div class="itxt">anggota aktif SW minimal 1 bulan pada periode ini</div></div>
+  <div class="ins ia"><div class="ival" id="iS">—</div><div class="itxt">dari setoran periode ini berasal dari SS sukarela</div></div>
+  <div class="ins ir"><div class="ival" id="iT">—</div><div class="itxt" id="iTxt">penabung SW terbesar periode ini</div></div>
+</div>
+
+<div class="card">
+  <div class="stitle"><i class="ti ti-chart-bar"></i>Tren simpanan bulanan</div>
+  <div class="lgnd">
+    <span><span class="ld" style="background:var(--teal)"></span>SW</span>
+    <span><span class="ld" style="background:#EF9F2799"></span>SS</span>
+    <span><span class="ld" style="background:#378ADD88"></span>SP (Jun-25)</span>
+    <span><span class="ld" style="background:rgba(226,75,74,.18);border:0.5px solid rgba(226,75,74,.5)"></span>Data kosong</span>
+  </div>
+  <div style="position:relative;width:100%;height:230px">
+    <canvas id="cTrend" role="img" aria-label="Grafik tren simpanan bulanan PUMK CTI, diperbarui sesuai filter.">Tren simpanan bulanan Jun 2025–Jun 2026.</canvas>
+  </div>
+</div>
+
+<div class="tcol">
+  <div class="card" style="margin-bottom:0">
+    <div class="stitle"><i class="ti ti-users-group"></i>Keaktifan anggota / bulan</div>
+    <div style="position:relative;width:100%;height:180px">
+      <canvas id="cActive" role="img" aria-label="Grafik keaktifan SW anggota per bulan.">Keaktifan per bulan.</canvas>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <div class="stitle"><i class="ti ti-sitemap"></i>Setoran SW per pokja</div>
+    <div style="position:relative;width:100%;height:180px">
+      <canvas id="cPokja" role="img" aria-label="Kontribusi SW per pokja, dinamis sesuai filter.">SW per pokja.</canvas>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="stitle"><i class="ti ti-table"></i>Peta kepatuhan simpanan wajib
+    <span id="hmMeta" style="margin-left:auto;font-weight:400;font-size:10px;color:var(--t3)"></span>
+    <span style="margin-left:8px;font-weight:400;font-size:10px;color:var(--t3);display:flex;align-items:center;gap:6px">
+      <span style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:9px;background:var(--teal);border-radius:2px;display:inline-block"></span>Bayar</span>
+      <span style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:9px;background:var(--bg2);border-radius:2px;border:0.5px solid var(--bdr);display:inline-block"></span>Tidak</span>
+      <span style="display:flex;align-items:center;gap:2px"><span style="width:9px;height:9px;border-radius:2px;display:inline-block;background:repeating-linear-gradient(-45deg,var(--bg2),var(--bg2) 3px,rgba(226,75,74,.2) 3px,rgba(226,75,74,.2) 6px)"></span>Kosong</span>
+    </span>
+  </div>
+  <div class="hmscroll"><div class="hmout" id="hmCont"></div></div>
+</div>
+
+<div class="card">
+  <div class="stitle"><i class="ti ti-trophy"></i>Peringkat SW periode ini<span style="margin-left:auto;font-weight:400;font-size:10px;color:var(--t3)">berdasarkan simpanan wajib pada periode terpilih</span></div>
+  <table class="tt">
+    <thead><tr>
+      <th style="width:24px">#</th><th style="width:22%">Nama</th><th style="width:20%">Pokja</th>
+      <th style="width:28px">L/P</th><th style="width:60px">Bln aktif</th>
+      <th style="width:90px;text-align:right">SW (Rp)</th><th style="width:70px;text-align:right">Porsi %</th>
+    </tr></thead>
+    <tbody id="topBody"></tbody>
+  </table>
+</div>
+
+<footer>Dashboard Dana Ketahanan · PUMK Cahaya Terang Ilomata · Program PCI JAPESDA Gorontalo 2025–2028<br>Sumber: Pembukuan Jun 2025 – Jun 2026 · Dibuat oleh MEL Officer JAPESDA</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const M=['Jun-25','Jul-25','Ags-25','Sep-25','Okt-25','Nov-25','Des-25','Jan-26','Feb-26','Mar-26','Apr-26','Mei-26','Jun-26'];
+const G=new Set([1,7,10]);
+const MD=[
+  {SW:350000,SS:1000000,SP:1600000,a:7},{SW:0,SS:0,SP:0,a:0},{SW:50000,SS:100000,SP:0,a:1},
+  {SW:700000,SS:2625000,SP:0,a:14},{SW:100000,SS:200000,SP:0,a:2},{SW:600000,SS:3450000,SP:0,a:12},
+  {SW:650000,SS:2920000,SP:0,a:13},{SW:0,SS:0,SP:0,a:0},{SW:50000,SS:250000,SP:0,a:1},
+  {SW:50000,SS:150000,SP:0,a:1},{SW:0,SS:0,SP:0,a:0},{SW:650000,SS:2900000,SP:0,a:13},
+  {SW:700000,SS:13525000,SP:0,a:14}
+];
+const PN={PG:'Pengurus',PT:'Pertanian',DK:'Dana Ketahanan',SP:'Smart Patrol',KS:'Kesehatan',LN:'Lainnya'};
+const PC={DK:'#1D9E75',PT:'#5DCAA5',PG:'#EF9F27',LN:'#888780',SP:'#378ADD',KS:'#9FE1CB'};
+const MB=[
+  {n:'Rahman K.',g:'L',pk:'PG',sw:[0,0,0,50000,0,50000,50000,0,0,0,0,50000,50000]},
+  {n:'Herlina',g:'P',pk:'DK',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Rusli',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Haris',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Erni',g:'P',pk:'KS',sw:[0,0,0,0,0,50000,0,0,0,0,0,50000,50000]},
+  {n:'Sahara',g:'P',pk:'PT',sw:[0,0,0,50000,0,0,50000,0,0,0,0,0,0]},
+  {n:'Hadija M.',g:'P',pk:'PT',sw:[0,0,0,0,0,0,0,0,0,0,0,50000,0]},
+  {n:'Ishak',g:'L',pk:'SP',sw:[0,0,0,50000,50000,50000,50000,0,0,0,0,0,0]},
+  {n:'Habiba A.',g:'P',pk:'PT',sw:[50000,0,0,50000,0,50000,50000,0,0,0,0,50000,50000]},
+  {n:'Yusrin',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Salma',g:'P',pk:'PT',sw:[50000,0,0,50000,0,50000,50000,0,0,0,0,50000,0]},
+  {n:'Mustafa',g:'L',pk:'LN',sw:[50000,0,0,50000,0,50000,50000,0,0,0,0,50000,0]},
+  {n:'Abdul R.',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Erna',g:'P',pk:'PT',sw:[50000,0,0,50000,0,50000,50000,0,0,0,0,50000,50000]},
+  {n:'Jamila',g:'P',pk:'DK',sw:[50000,0,0,50000,0,0,0,0,0,0,0,0,50000]},
+  {n:'Hadija D.',g:'P',pk:'DK',sw:[50000,0,50000,50000,50000,50000,50000,0,50000,50000,0,50000,50000]},
+  {n:'Sry W.',g:'P',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Rahman M.',g:'L',pk:'PG',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Ismail',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Feriyanto',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Usman',g:'L',pk:'SP',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Nurindra',g:'P',pk:'KS',sw:[0,0,0,0,0,0,0,0,0,0,0,0,50000]},
+  {n:'Danial',g:'L',pk:'PG',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Maryam',g:'P',pk:'PT',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Riska',g:'P',pk:'PG',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Abdul S.',g:'L',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Marni',g:'P',pk:'LN',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Tahir',g:'L',pk:'PT',sw:[0,0,0,0,0,0,0,0,0,0,0,0,0]},
+  {n:'Rostin',g:'P',pk:'DK',sw:[0,0,0,50000,0,50000,0,0,0,0,0,0,50000]},
+  {n:'Maimuna',g:'P',pk:'PT',sw:[50000,0,0,50000,0,50000,50000,0,0,0,0,50000,50000]},
+  {n:'Astin',g:'P',pk:'DK',sw:[0,0,0,50000,0,0,0,0,0,0,0,0,0]},
+  {n:'Suriyanti',g:'P',pk:'DK',sw:[0,0,0,50000,0,50000,50000,0,0,0,0,0,0]},
+  {n:'Sira',g:'P',pk:'PT',sw:[0,0,0,50000,0,50000,50000,0,0,0,0,50000,50000]},
+  {n:'Asna',g:'P',pk:'PT',sw:[0,0,0,0,0,0,50000,0,0,0,0,50000,50000]},
+  {n:'Habiba At.',g:'P',pk:'LN',sw:[0,0,0,0,0,0,50000,0,0,0,0,50000,50000]},
+  {n:'Hadija S.',g:'P',pk:'PT',sw:[0,0,0,0,0,0,0,0,0,0,0,50000,50000]},
+  {n:'Amina',g:'P',pk:'DK',sw:[0,0,0,0,0,0,0,0,0,0,0,0,50000]}
+];
+const PS=[
+  {l:'Semua',idx:[0,1,2,3,4,5,6,7,8,9,10,11,12]},
+  {l:'2025',idx:[0,1,2,3,4,5,6]},{l:'2026',idx:[7,8,9,10,11,12]},
+  {l:"Q3 '25",idx:[1,2,3]},{l:"Q4 '25",idx:[4,5,6]},
+  {l:"Q1 '26",idx:[7,8,9]},{l:"Q2 '26",idx:[10,11,12]},
+];
+const dk=matchMedia('(prefers-color-scheme:dark)').matches;
+const tc=dk?'#8b949e':'#57606a';
+const gc=dk?'rgba(255,255,255,.07)':'rgba(0,0,0,.07)';
+let cT,cA,cP,curIdx=[0,1,2,3,4,5,6,7,8,9,10,11,12];
+const lbl=idx=>idx.map(i=>(G.has(i)?'⚠ ':'')+M[i]);
+const swBg=idx=>idx.map(i=>G.has(i)?'rgba(226,75,74,.18)':'#1D9E75');
+const ssBg=idx=>idx.map(i=>G.has(i)?'rgba(226,75,74,.1)':'#EF9F2780');
+const fmt=v=>'Rp '+Math.round(v).toLocaleString('id-ID');
+const fmtM=v=>(Math.round(v/10000)/100).toFixed(2)+' Jt';
+function computePK(idx){
+  const m={PG:0,PT:0,DK:0,SP:0,KS:0,LN:0};
+  MB.forEach(b=>{m[b.pk]+=idx.reduce((s,i)=>s+b.sw[i],0);});
+  return Object.entries(m).map(([k,v])=>({k,n:PN[k],v,c:PC[k]})).sort((a,b)=>b.v-a.v);
+}
+function computeMet(idx){
+  const sw=idx.reduce((s,i)=>s+MD[i].SW,0);
+  const ss=idx.reduce((s,i)=>s+MD[i].SS,0);
+  const sp=idx.reduce((s,i)=>s+MD[i].SP,0);
+  const tot=sw+ss+sp;
+  const mwd=idx.filter(i=>MD[i].SW>0||MD[i].SS>0).length;
+  const na=MB.filter(b=>idx.some(i=>b.sw[i]>0)).length;
+  let ts=0,tn='';
+  MB.forEach(b=>{const s=idx.reduce((x,i)=>x+b.sw[i],0);if(s>ts){ts=s;tn=b.n;}});
+  return{sw,ss,sp,tot,mwd,na,ng:idx.filter(i=>G.has(i)).length,
+    ssr:tot>0?Math.round(ss/tot*100):0,ts,tn,avg:na>0?Math.round(sw/na):0};
+}
+function rKPIs(m,idx){
+  document.getElementById('kTotal').textContent=fmtM(m.sw+m.ss);
+  document.getElementById('kSub').textContent='SW '+fmtM(m.sw)+' + SS '+fmtM(m.ss);
+  document.getElementById('kActive').textContent=m.na+' / 37';
+  const b=document.getElementById('kBdg');
+  const ni=37-m.na;
+  if(ni>0){b.style.display='inline-block';b.textContent=ni+' tidak aktif SW';}
+  else b.style.display='none';
+  document.getElementById('kMonths').textContent=m.mwd+' / '+idx.length;
+  document.getElementById('kMSub').textContent=m.ng>0?m.ng+' bulan tanpa data':'Semua bulan berdata';
+  document.getElementById('kAvg').textContent=m.avg>0?'Rp '+Math.round(m.avg/1000)+'rb':'—';
+}
+function rIns(m){
+  document.getElementById('iA').textContent=Math.round(m.na/37*100)+'%';
+  document.getElementById('iS').textContent=m.ssr+'%';
+  document.getElementById('iT').textContent=m.tn||'—';
+  document.getElementById('iTxt').textContent=m.ts>0?'SW '+fmt(m.ts)+' pada periode ini':'(tidak ada setoran SW)';
+}
+function uCharts(idx){
+  const l=lbl(idx);
+  cT.data.labels=l;
+  cT.data.datasets[0].data=idx.map(i=>MD[i].SW/1e6);
+  cT.data.datasets[0].backgroundColor=swBg(idx);
+  cT.data.datasets[1].data=idx.map(i=>MD[i].SS/1e6);
+  cT.data.datasets[1].backgroundColor=ssBg(idx);
+  cT.data.datasets[2].data=idx.map(i=>MD[i].SP/1e6);
+  cT.update('none');
+  cA.data.labels=l;
+  cA.data.datasets[0].data=idx.map(i=>MD[i].a);
+  cA.data.datasets[0].pointBackgroundColor=idx.map(i=>G.has(i)?'#E24B4A':'#1D9E75');
+  cA.update('none');
+  const pk=computePK(idx);
+  cP.data.labels=pk.map(d=>d.n);
+  cP.data.datasets[0].data=pk.map(d=>d.v/1e6);
+  cP.data.datasets[0].backgroundColor=pk.map(d=>d.c);
+  cP.update('none');
+}
+function rHM(idx){
+  const c=document.getElementById('hmCont');
+  let h='<div class="hmhdr">';
+  idx.forEach(i=>{h+=`<div class="hmmth${G.has(i)?' gap':''}">${M[i]}</div>`;});
+  h+='<div style="width:32px"></div></div>';
+  [...MB].map(b=>({...b,act:idx.filter(i=>b.sw[i]>0).length}))
+    .sort((a,b)=>b.act-a.act)
+    .forEach(b=>{
+      h+=`<div class="hmrow"><div class="hmname" title="${b.n}">${b.n}</div><div class="hmcells">`;
+      idx.forEach(i=>{
+        const cl=G.has(i)?'cg':(b.sw[i]>0?'cp':'ce');
+        h+=`<div class="hmcell ${cl}" title="${M[i]}: ${b.sw[i]>0?fmt(b.sw[i]):(G.has(i)?'Data kosong':'Tidak bayar')}"></div>`;
+      });
+      const actN=idx.filter(i=>b.sw[i]>0).length;
+      const col=actN>Math.max(3,Math.round(idx.length/3))?'#1D9E75':actN>0?tc:'#E24B4A';
+      h+=`</div><div class="hmcnt" style="color:${col}">${actN}</div></div>`;
+    });
+  c.innerHTML=h;
+  document.getElementById('hmMeta').textContent=idx.length+' bulan · '+MB.filter(b=>idx.some(i=>b.sw[i]>0)).length+' aktif';
+}
+function rTable(idx){
+  const rows=[...MB].map(b=>({...b,sw:idx.reduce((s,i)=>s+b.sw[i],0),act:idx.filter(i=>b.sw[i]>0).length}))
+    .sort((a,b)=>b.sw-a.sw).slice(0,10);
+  const mx=rows[0]?.sw||1;
+  const tot=rows.reduce((s,r)=>s+r.sw,0);
+  document.getElementById('topBody').innerHTML=rows.map((r,i)=>`
+    <tr>
+      <td style="color:var(--t2);font-weight:600">${i+1}</td>
+      <td>${r.n}<div class="bar-bg"><div class="bar-f" style="width:${Math.round(r.sw/mx*100)}%"></div></div></td>
+      <td style="color:var(--t2);font-size:11px">${PN[r.pk]}</td>
+      <td class="g${r.g}">${r.g}</td>
+      <td style="text-align:center;color:var(--t2)">${r.act}</td>
+      <td style="text-align:right">${r.sw>0?fmt(r.sw):'—'}</td>
+      <td style="text-align:right;color:var(--t2)">${tot>0?Math.round(r.sw/tot*100):0}%</td>
+    </tr>`).join('');
+}
+function uChip(idx){
+  const f=M[idx[0]],l=M[idx[idx.length-1]];
+  document.getElementById('periodChip').innerHTML=`<i class="ti ti-calendar"></i><span>${f===l?f:f+' – '+l} (${idx.length} bln)</span>`;
+  document.getElementById('gapWarn').style.display=idx.some(i=>G.has(i))?'inline-flex':'none';
+}
+function render(idx){
+  curIdx=idx;
+  const m=computeMet(idx);
+  rKPIs(m,idx);rIns(m);uCharts(idx);rHM(idx);rTable(idx);uChip(idx);
+}
+function setPreset(n){
+  document.querySelectorAll('.fbtn').forEach((b,i)=>b.classList.toggle('on',i===n));
+  const p=PS[n];
+  document.getElementById('selF').value=p.idx[0];
+  document.getElementById('selT').value=p.idx[p.idx.length-1];
+  render(p.idx);
+}
+function applyCustom(){
+  let f=+document.getElementById('selF').value,t=+document.getElementById('selT').value;
+  if(t<f){t=f;document.getElementById('selT').value=f;}
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  const idx=[];for(let i=f;i<=t;i++)idx.push(i);
+  render(idx);
+}
+function onSC(){
+  const f=+document.getElementById('selF').value,t=+document.getElementById('selT').value;
+  if(t<f)document.getElementById('selT').value=f;
+}
+function initSelects(){
+  const sf=document.getElementById('selF'),st=document.getElementById('selT');
+  M.forEach((m,i)=>{sf.innerHTML+=`<option value="${i}">${m}</option>`;st.innerHTML+=`<option value="${i}">${m}</option>`;});
+  st.value=12;
+}
+function initCharts(){
+  Chart.defaults.font.size=11;
+  Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif';
+  const idx=curIdx;
+  cT=new Chart(document.getElementById('cTrend'),{
+    type:'bar',data:{labels:lbl(idx),datasets:[
+      {label:'SW',data:idx.map(i=>MD[i].SW/1e6),backgroundColor:swBg(idx),stack:'s'},
+      {label:'SS',data:idx.map(i=>MD[i].SS/1e6),backgroundColor:ssBg(idx),stack:'s'},
+      {label:'SP',data:idx.map(i=>MD[i].SP/1e6),backgroundColor:'#378ADD70',stack:'s'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label(c){return' '+c.dataset.label+': '+fmt(Math.round(c.raw*1e6))}}}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc,autoSkip:false,maxRotation:45,font:{size:10}}},
+        y:{stacked:true,grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+' Jt'},title:{display:true,text:'Rp Juta',color:tc,font:{size:10}}}}}
+  });
+  cA=new Chart(document.getElementById('cActive'),{
+    type:'line',data:{labels:lbl(idx),datasets:[{
+      label:'Aktif',data:idx.map(i=>MD[i].a),borderColor:'#1D9E75',
+      backgroundColor:'rgba(29,158,117,.1)',pointBackgroundColor:idx.map(i=>G.has(i)?'#E24B4A':'#1D9E75'),
+      pointRadius:4,fill:true,tension:.3
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label(c){return' '+c.raw+' anggota'}}}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc,autoSkip:false,maxRotation:45,font:{size:10}}},
+        y:{grid:{color:gc},ticks:{color:tc,precision:0},min:0,max:16}}}
+  });
+  const pk=computePK(idx);
+  cP=new Chart(document.getElementById('cPokja'),{
+    type:'bar',data:{labels:pk.map(d=>d.n),datasets:[{data:pk.map(d=>d.v/1e6),backgroundColor:pk.map(d=>d.c),borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label(c){return' '+fmtM(c.raw*1e6)}}}},
+      scales:{x:{grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+' Jt'}},y:{grid:{display:false},ticks:{color:tc,font:{size:10}}}}}
+  });
+}
+initSelects();initCharts();render(curIdx);
+</script>
+</body>
+</html>
